@@ -35,6 +35,13 @@ body::before {
     background-attachment: fixed;
   }
 }
+@media (max-width: 1023px) {
+  body::before {
+    background: #040404 url("../img/bg4.png") top right no-repeat;
+    /* Specify the path to your mobile background image */
+    background-size: cover;
+  }
+}
 
 a {
   color: #18d26e;
