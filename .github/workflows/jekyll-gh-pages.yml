@@ -1,23 +1,35 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
+name: Deploy to GitHub Pages
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [
-    react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-  base: '/raghul-m.github.io/'
-}));
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write 
+  contents: write 
+  pages: write    
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 
+
+      - name: Vite GitHub Pages Deployer
+        uses: skywarth/vite-github-pages-deployer@v1.5.0
+        with:
+          public_base_path: /raghul-m.github.io/  # Replace with your repository name
+          build_path: ./dist
+          install_phase_node_env: dev
+          build_phase_node_env: production
+          package_manager: npm
+          artifact_name: github-pages
+          debug_mode: false
+          working_path: ./
