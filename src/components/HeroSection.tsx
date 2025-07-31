@@ -89,7 +89,7 @@ const HeroSection = () => {
             <div className="relative">
               <div className="w-80 h-80 rounded-full overflow-hidden border-4 border-[#18d26e] shadow-2xl relative z-10">
                 <img 
-                  src="/lovable-uploads/0cb747a1-109b-42aa-b236-69e4271156f5.png" 
+                  src="/heroimage.png" 
                   alt="Raghul M - Full Stack Developer"
                   className="w-full h-full object-cover"
                 />
