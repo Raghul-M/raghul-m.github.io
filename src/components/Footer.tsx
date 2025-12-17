@@ -40,8 +40,11 @@ const Footer = () => {
             <div className="text-2xl sm:text-3xl font-bold mb-4">
               <span className="text-[#18d26e]">R</span>M
             </div>
-            <p className="text-gray-300 mb-4 text-sm sm:text-base">
+            <p className="text-gray-300 mb-2 text-sm sm:text-base">
               Keep in Touch
+            </p>
+            <p className="text-gray-300 mb-4 text-xs sm:text-sm">
+              Open to MLOps, GenAI, and DevOps, SDE roles globally
             </p>
             <div className="flex flex-wrap gap-2">
               {socialLinks.map((social) => {

@@ -41,7 +41,7 @@ const HeroSection = () => {
             
             <div className="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed space-y-4">
               <p>
-                Software Engineer specializing in MLOps, GenAI, and cloud infrastructure. Open-source contributor focused on AI systems in production and cloud-native by default. Building scalable AI systems with engineering discipline. I design, build, and ship AI systems that don't break in production.
+                Building scalable Software solutions with engineering discipline. I design, build, and ship Software solutions that don't break in production.
               </p>
               
               <p>
@@ -95,7 +95,7 @@ const HeroSection = () => {
                 className="border-[#18d26e] text-black hover:bg-[#18d26e] hover:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-lg font-medium transition-all duration-300 w-auto max-w-[200px] sm:max-w-none mx-auto sm:mx-0"
                 onClick={() => window.open('/resume.pdf', '_blank')}
               >
-                Download Resume
+                Hire me
               </Button>
             </div>
           </div>
