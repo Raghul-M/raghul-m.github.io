@@ -120,10 +120,10 @@ const TestimonialSection = () => {
           });
         } else {
           // For mobile: scroll to individual card
-          containerRef.current.scrollTo({
-            left: cardElement.offsetLeft,
-            behavior: 'smooth',
-          });
+        containerRef.current.scrollTo({
+          left: cardElement.offsetLeft,
+          behavior: 'smooth',
+        });
         }
       }
     }
@@ -137,7 +137,7 @@ const TestimonialSection = () => {
       setStartIndex((prev) => Math.max(0, prev - 2));
     } else {
       // Mobile: move by 1 card
-      setStartIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setStartIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
     }
     startSlider();
   };
@@ -149,7 +149,7 @@ const TestimonialSection = () => {
       setStartIndex((prev) => Math.min(testimonials.length - 2, prev + 2));
     } else {
       // Mobile: move by 1 card
-      setStartIndex((prev) => (prev + 1) % testimonials.length);
+    setStartIndex((prev) => (prev + 1) % testimonials.length);
     }
     startSlider();
   };
@@ -179,9 +179,9 @@ const TestimonialSection = () => {
             className="flex overflow-x-auto scroll-smooth gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {testimonials.map((testimonial, idx) => (
-              <div
-                key={testimonial.id}
+          {testimonials.map((testimonial, idx) => (
+            <div
+              key={testimonial.id}
                 className="flex-shrink-0 w-full md:w-[calc(50%-12px)] md:min-w-[calc(50%-12px)] md:max-w-[calc(50%-12px)] snap-start"
               >
                 <div className="bg-white border border-gray-200 rounded-xl p-5 md:p-6 h-full flex flex-col shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#18d26e]">
@@ -208,21 +208,21 @@ const TestimonialSection = () => {
                           {testimonial.role}
                         </div>
                       </div>
-                      {testimonial.linkedinUrl && (
-                        <a
-                          href={testimonial.linkedinUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                {testimonial.linkedinUrl && (
+                  <a
+                    href={testimonial.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                           className="ml-4 rounded-full border-2 border-[#0A66C2] p-1.5 hover:border-[#18d26e] transition-colors duration-300 flex items-center justify-center"
-                          aria-label={`LinkedIn profile of ${testimonial.name}`}
-                        >
+                    aria-label={`LinkedIn profile of ${testimonial.name}`}
+                  >
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#0A66C2" className="hover:fill-[#18d26e] transition-colors duration-300">
                             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
                           </svg>
-                        </a>
-                      )}
-                    </div>
-                  </div>
+                  </a>
+                )}
+              </div>
+            </div>
                 </div>
               </div>
             ))}
@@ -245,7 +245,7 @@ const TestimonialSection = () => {
                 }`}
                 aria-label={`Go to testimonial ${idx + 1}`}
               />
-            ))}
+          ))}
           </div>
         </div>
       </div>

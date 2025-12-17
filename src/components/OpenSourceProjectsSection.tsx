@@ -22,6 +22,10 @@ const OpenSourceProjectsSection = () => {
       name: 'ODH',
       logo: '/orgs/odh.png',
     },
+    {
+      name: 'CNCF',
+      logo: '/cncf.png',
+    },
   ];
 
   const projects = [

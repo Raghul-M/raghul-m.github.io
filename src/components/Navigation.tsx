@@ -22,13 +22,14 @@ const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) => {
 
   const navItems = [
     { name: 'Home', href: '/' },
+    { name: 'Showcase', href: '/showcase' },
     { name: 'Experience', href: '/experience' },
     { name: 'Contact', href: '/contact' },
   ];
 
   const cornerItems = [
-    { name: 'Projects', href: '/projects' },
-    { name: 'Blogs', href: 'https://blog.raghul.in', external: true },
+    { name: 'Projects', href: 'https://projects.raghul.in', external: true },
+    { name: 'Blogs', href: 'https://blogs.raghul.in', external: true },
   ];
 
   const scrollToSection = (href: string) => {
@@ -178,28 +179,21 @@ const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) => {
                 </Link>
               )
             ))}
-            {cornerItems.map((item) => (
-              item.external ? (
+            {/* Projects and Blogs in boxes for mobile */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              {cornerItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full text-left text-black hover:text-[#18d26e] transition-colors duration-300 font-medium py-2"
-                >
-                  {item.name}
-                </a>
-              ) : (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="block w-full text-left text-black hover:text-[#18d26e] transition-colors duration-300 font-medium py-2"
+                  className="block w-full text-center px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg mb-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
-                </Link>
-              )
-            ))}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

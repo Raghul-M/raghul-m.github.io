@@ -4,10 +4,7 @@ import HeroSection from '@/components/HeroSection';
 import PodcastsAndTalksSection from '@/components/PodcastsAndTalksSection';
 import CareerPodSection from '@/components/CareerPodSection';
 import OpenSourceProjectsSection from '@/components/OpenSourceProjectsSection';
-import ProjectsSection from '@/components/ProjectsSection';
-import ExperienceSection from '@/components/ExperienceSection';
 import TestimonialSection from '@/components/TestimonialSection';
-import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import { useLocation } from 'react-router-dom';
 
