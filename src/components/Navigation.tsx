@@ -29,7 +29,7 @@ const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) => {
 
   const cornerItems = [
     { name: 'Projects', href: 'https://projects.raghul.in', external: true },
-    { name: 'Blogs', href: 'https://blogs.raghul.in', external: true },
+    { name: 'Blogs', href: 'https://blog.raghul.in', external: true },
   ];
 
   const scrollToSection = (href: string) => {
