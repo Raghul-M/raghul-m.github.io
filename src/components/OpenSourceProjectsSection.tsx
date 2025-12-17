@@ -140,11 +140,11 @@ const OpenSourceProjectsSection = () => {
               <div className="absolute -bottom-2 left-0 w-full h-1 bg-[#18d26e] rounded-full"></div>
             </span>
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-wrap md:flex-nowrap justify-center gap-4 max-w-6xl mx-auto">
             {contributedOrgs.map((org, index) => (
               <div
                 key={index}
-                className="bg-white border border-gray-200 rounded-lg p-4 hover:border-[#18d26e] transition-all duration-300 shadow-sm hover:shadow-md flex flex-col items-center justify-center"
+                className="bg-white border border-gray-200 rounded-lg p-4 hover:border-[#18d26e] transition-all duration-300 shadow-sm hover:shadow-md flex flex-col items-center justify-center min-w-[140px] flex-1 md:flex-none"
               >
                 <div className="w-16 h-16 mb-3 flex items-center justify-center overflow-hidden">
                   <img
