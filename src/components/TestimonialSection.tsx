@@ -78,7 +78,16 @@ const TestimonialSection = () => {
   const startSlider = () => {
     stopSlider(); // Clear any existing interval
     intervalRef.current = window.setInterval(() => {
-      setStartIndex((prev) => (prev + 1) % testimonials.length); // Loop through testimonials
+      if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+        // Desktop: move by 2 cards
+        setStartIndex((prev) => {
+          const next = prev + 2;
+          return next >= testimonials.length ? 0 : next;
+        });
+      } else {
+        // Mobile: move by 1 card
+        setStartIndex((prev) => (prev + 1) % testimonials.length);
+      }
     }, SLIDE_INTERVAL);
   };
 
@@ -97,14 +106,25 @@ const TestimonialSection = () => {
   // Scroll effect based on startIndex
   useEffect(() => {
     if (containerRef.current) {
-      // Calculate the index of the card to scroll into view
-      // We want to scroll to the start of the current group of visible cards
-      const cardElement = containerRef.current.children[startIndex % testimonials.length] as HTMLElement;
+      const isDesktop = window.innerWidth >= 768;
+      const cardIndex = startIndex % testimonials.length;
+      const cardElement = containerRef.current.children[cardIndex] as HTMLElement;
+      
       if (cardElement) {
-        containerRef.current.scrollTo({
-          left: cardElement.offsetLeft,
-          behavior: 'smooth',
-        });
+        if (isDesktop) {
+          // For desktop: scroll to show exactly 2 cards starting from startIndex
+          // Use the card's actual offsetLeft position
+          containerRef.current.scrollTo({
+            left: cardElement.offsetLeft,
+            behavior: 'smooth',
+          });
+        } else {
+          // For mobile: scroll to individual card
+          containerRef.current.scrollTo({
+            left: cardElement.offsetLeft,
+            behavior: 'smooth',
+          });
+        }
       }
     }
   }, [startIndex, testimonials.length]);
@@ -112,13 +132,25 @@ const TestimonialSection = () => {
 
   const goToPrevious = () => {
     stopSlider();
-    setStartIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+      // Desktop: move by 2 cards
+      setStartIndex((prev) => Math.max(0, prev - 2));
+    } else {
+      // Mobile: move by 1 card
+      setStartIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    }
     startSlider();
   };
 
   const goToNext = () => {
     stopSlider();
-    setStartIndex((prev) => (prev + 1) % testimonials.length);
+    if (typeof window !== 'undefined' && window.innerWidth >= 768) {
+      // Desktop: move by 2 cards
+      setStartIndex((prev) => Math.min(testimonials.length - 2, prev + 2));
+    } else {
+      // Mobile: move by 1 card
+      setStartIndex((prev) => (prev + 1) % testimonials.length);
+    }
     startSlider();
   };
 
@@ -126,64 +158,96 @@ const TestimonialSection = () => {
   // We will render all testimonials in the container and let overflow/scrolling handle visibility.
 
   return (
-    <section id="testimonials" className="py-20 bg-white relative overflow-hidden px-4 sm:px-6 lg:px-8">
-      {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-[#18d26e]/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#18d26e]/5 rounded-full translate-x-1/2 translate-y-1/2"></div>
-
-      <div className="max-w-7xl mx-auto relative">
-        <div className="text-center mb-24">
-          <h2 className="text-4xl font-bold text-black mb-6">
-            Recommendations <span className="text-[#18d26e]"> & Testimonials</span>
+    <section id="testimonials" className="py-12 sm:py-20 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-4 sm:mb-6">
+            <span className="relative inline-block">
+              Recommendations & Testimonials
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-[#18d26e] rounded-full"></div>
+            </span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             Hear what mentors, managers, and industry professionals have to say about working with me and the impact of our collaborations.
           </p>
         </div>
-        {/* Testimonials Container - Enabled Responsive Horizontal Scrolling and Auto-Slide */}
-        {/* Flex container showing 1 card on mobile, 2 on medium+, with overflow and gap */}
-        {/* Updated container to hold all cards for scrolling and applied responsive widths to cards */}
-        <div ref={containerRef} className="flex flex-row overflow-x-hidden overflow-y-hidden flex-nowrap gap-10 pb-4 scrollbar-hide">
-          {testimonials.map((testimonial, idx) => (
-            <div
-              key={testimonial.id}
-              className={`relative bg-white rounded-3xl border-2 border-black pt-6 pb-6 px-4 md:px-6 flex-shrink-0 w-full xl:w-[calc(50%-20px)] flex flex-col items-center transition-all duration-300`}
-              style={{ zIndex: 10 - idx }}
-            >
-              <p className="text-gray-700 text-center text-lg mb-8">"{testimonial.content}"</p>
-              <div className="text-center mt-auto flex flex-col items-center">
-                <div className="font-bold text-[#18d26e] text-xl">{testimonial.name}</div>
-                <div className="text-gray-500 text-base mb-2">{testimonial.role}</div>
-                {testimonial.linkedinUrl && (
-                  <a
-                    href={testimonial.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-[#18d26e] transition-colors duration-300"
-                    aria-label={`LinkedIn profile of ${testimonial.name}`}
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#0A66C2" stroke="#0A66C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                  </a>
-                )}
+
+        {/* Slider Container */}
+        <div className="relative">
+          <div 
+            ref={containerRef} 
+            className="flex overflow-x-auto scroll-smooth gap-6 pb-8 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {testimonials.map((testimonial, idx) => (
+              <div
+                key={testimonial.id}
+                className="flex-shrink-0 w-full md:w-[calc(50%-12px)] md:min-w-[calc(50%-12px)] md:max-w-[calc(50%-12px)] snap-start"
+              >
+                <div className="bg-white border border-gray-200 rounded-xl p-5 md:p-6 h-full flex flex-col shadow-sm hover:shadow-md transition-all duration-300 hover:border-[#18d26e]">
+                  {/* Quote Icon */}
+                  <div className="mb-2">
+                    <svg className="w-6 h-6 text-[#18d26e]" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.996 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.984zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.432.917-3.995 3.638-3.995 5.849h3.983v10h-9.984z"/>
+                    </svg>
+                  </div>
+                  
+                  {/* Content */}
+                  <p className="text-gray-700 text-sm leading-relaxed mb-4 flex-grow line-clamp-6">
+                    {testimonial.content}
+                  </p>
+                  
+                  {/* Author Info */}
+                  <div className="border-t border-gray-100 pt-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-semibold text-black text-base mb-0.5">
+                          {testimonial.name}
+                        </div>
+                        <div className="font-semibold text-black text-xs">
+                          {testimonial.role}
+                        </div>
+                      </div>
+                      {testimonial.linkedinUrl && (
+                        <a
+                          href={testimonial.linkedinUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ml-4 rounded-full border-2 border-[#0A66C2] p-1.5 hover:border-[#18d26e] transition-colors duration-300 flex items-center justify-center"
+                          aria-label={`LinkedIn profile of ${testimonial.name}`}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#0A66C2" className="hover:fill-[#18d26e] transition-colors duration-300">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  stopSlider();
+                  setStartIndex(idx);
+                  startSlider();
+                }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  idx === startIndex % testimonials.length
+                    ? 'bg-[#18d26e] w-8'
+                    : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to testimonial ${idx + 1}`}
+              />
+            ))}
+          </div>
         </div>
-        {/* Arrow buttons are positioned relative to the main container div now */}
-          <button
-            onClick={goToPrevious}
-            className="absolute -left-12 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition-shadow duration-300 z-20 focus:outline-none"
-            aria-label="Previous testimonial"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-left text-gray-700"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute -right-12 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition-shadow duration-300 z-20 focus:outline-none"
-            aria-label="Next testimonial"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-right text-gray-700"><path d="m9 18 6-6-6-6"/></svg>
-          </button>
       </div>
     </section>
   );

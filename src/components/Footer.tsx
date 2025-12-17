@@ -30,43 +30,30 @@ const Footer = () => {
     },
   ];
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-black text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
           {/* Brand Section */}
           <div>
-            <div className="text-3xl font-bold mb-4">
+            <div className="text-2xl sm:text-3xl font-bold mb-4">
               <span className="text-[#18d26e]">R</span>M
             </div>
-            <p className="text-gray-300 mb-4">
+            <p className="text-gray-300 mb-4 text-sm sm:text-base">
               Keep in Touch
             </p>
             <div className="flex flex-wrap gap-2">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
+                const isGithub = social.label === 'GitHub';
                 return (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${social.bgColor} text-white shadow-md hover:shadow-lg hover:scale-110`}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${social.bgColor} ${isGithub ? 'border-2 border-white' : ''} text-white shadow-md hover:shadow-lg hover:scale-110`}
                     aria-label={social.label}
                   >
                     <Icon size={18} />
@@ -76,28 +63,11 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <button
-                    onClick={() => scrollToSection(link.href)}
-                    className="text-gray-300 hover:text-[#18d26e] transition-colors duration-300"
-                  >
-                    {link.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Get In Touch</h3>
-            <div className="space-y-2 text-gray-300">
-              <p>📧 raghulmadhavan1@gmail.com</p>
+          <div className="text-left md:text-right">
+            <h3 className="text-base sm:text-lg font-semibold mb-4">Get In Touch</h3>
+            <div className="space-y-2 text-gray-300 text-sm sm:text-base">
+              <p className="break-words">📧 raghulmadhavan1@gmail.com</p>
               <p>📍 Chennai, India</p>
             </div>
           </div>
