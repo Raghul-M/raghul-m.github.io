@@ -46,13 +46,18 @@ const ContactSection = () => {
             <div className="space-y-6">
               {contactInfo.map((info) => {
                 const Icon = info.icon;
+                const isEmail = info.label === 'Email';
                 return (
                   <a
                     key={info.label}
                     href={info.href}
                     className="flex items-center space-x-4 p-4 rounded-lg hover:bg-gray-50 transition-colors duration-300 group"
                   >
-                    <div className="w-12 h-12 bg-[#18d26e] rounded-lg flex items-center justify-center group-hover:bg-[#15b85a] transition-colors duration-300">
+                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                      isEmail 
+                        ? 'bg-blue-500 group-hover:bg-blue-600' 
+                        : 'bg-[#18d26e] group-hover:bg-[#15b85a]'
+                    }`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <div>

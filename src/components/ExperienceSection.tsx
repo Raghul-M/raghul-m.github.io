@@ -266,7 +266,7 @@ const ExperienceSection = () => {
                           {isExpanded ? (
                             <ChevronUp className="w-5 h-5 text-[#18d26e]" />
                           ) : (
-                            <ChevronDown className="w-5 h-5 text-gray-400" />
+                            <ChevronDown className="w-5 h-5 text-[#18d26e]" />
                           )}
                         </div>
                       </button>
@@ -435,7 +435,7 @@ const ExperienceSection = () => {
                                   {isExpanded ? (
                                     <ChevronUp className="w-5 h-5 text-[#18d26e]" />
                                   ) : (
-                                    <ChevronDown className="w-5 h-5 text-gray-400" />
+                                    <ChevronDown className="w-5 h-5 text-[#18d26e]" />
                                   )}
                                 </div>
                               )}
@@ -522,9 +522,11 @@ const ExperienceSection = () => {
                     <div className="mt-auto flex items-center justify-between text-xs text-gray-500 pt-2">
                       <div className="flex items-center">
                         <Calendar className="w-3 h-3 mr-1" />
-                        {cert.period} {cert.ongoing && <span className="text-[#18d26e] ml-1">(ongoing)</span>}
+                        {cert.period}
                       </div>
-                      {cert.verifyUrl && cert.verifyUrl !== '#' && (
+                      {cert.ongoing ? (
+                        <span className="text-[#18d26e] font-medium">Ongoing</span>
+                      ) : cert.verifyUrl && cert.verifyUrl !== '#' ? (
                         <a 
                           href={cert.verifyUrl}
                           target="_blank"
@@ -534,7 +536,7 @@ const ExperienceSection = () => {
                           <span>Verify</span>
                           <ArrowRight className="w-3 h-3 ml-1" />
                         </a>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 );

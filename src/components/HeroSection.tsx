@@ -93,7 +93,7 @@ const HeroSection = () => {
               <Button 
                 variant="outline" 
                 className="border-[#18d26e] text-black hover:bg-[#18d26e] hover:text-white px-4 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-lg font-medium transition-all duration-300 w-auto max-w-[200px] sm:max-w-none mx-auto sm:mx-0"
-                onClick={() => window.open('/resume.pdf', '_blank')}
+                onClick={() => window.open('https://drive.google.com/file/d/1m0RFpisNsVKS3ygWiAWOGcRcBNQvzv6V/view?usp=sharing', '_blank')}
               >
                 Hire me
               </Button>

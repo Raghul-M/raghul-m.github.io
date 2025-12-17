@@ -11,14 +11,14 @@ const ShowcasePage = () => {
       id: 1,
       name: 'Gmail Sender Action',
       description: 'Custom GitHub Action for sending automated emails via Gmail with HTML templates and attachment support.',
-      marketplaceUrl: 'https://github.com/marketplace',
+      marketplaceUrl: 'https://github.com/marketplace/actions/gmail-sender-action',
       image: '/gmailghaction.png',
     },
     {
       id: 2,
       name: 'Quay Push Action',
       description: 'GitHub Action for automated container image building and pushing to Red Hat Quay registry.',
-      marketplaceUrl: 'https://github.com/marketplace',
+      marketplaceUrl: 'https://github.com/marketplace/actions/quay-push-action',
       image: '/quayghaction.png',
     },
   ];
@@ -90,6 +90,9 @@ const ShowcasePage = () => {
 
   const getVisibleCards = () => {
     if (typeof window !== 'undefined') {
+      if (window.innerWidth >= 1024) {
+        return 3;
+      }
       if (window.innerWidth >= 768) {
         return 2;
       }
@@ -103,13 +106,25 @@ const ShowcasePage = () => {
       window.clearInterval(intervalRef.current);
     }
     intervalRef.current = window.setInterval(() => {
-      if (typeof window !== 'undefined' && window.innerWidth >= 768) {
-        setStartIndex((prev) => {
-          const next = prev + 2;
-          return next >= techTalks.length ? 0 : next;
-        });
-      } else {
-        setStartIndex((prev) => (prev + 1) % techTalks.length);
+      if (typeof window !== 'undefined') {
+        if (window.innerWidth >= 1024) {
+          setStartIndex((prev) => {
+            const next = prev + 3;
+            // If next would exceed length, check if we can show remaining cards
+            if (next >= techTalks.length) {
+              // If there are remaining cards (less than 3), show them, otherwise reset
+              return techTalks.length - 3 >= 0 ? techTalks.length - 3 : 0;
+            }
+            return next;
+          });
+        } else if (window.innerWidth >= 768) {
+          setStartIndex((prev) => {
+            const next = prev + 2;
+            return next >= techTalks.length ? 0 : next;
+          });
+        } else {
+          setStartIndex((prev) => (prev + 1) % techTalks.length);
+        }
       }
     }, SLIDE_INTERVAL);
   };
@@ -393,10 +408,10 @@ const ShowcasePage = () => {
                 onMouseEnter={stopSlider}
                 onMouseLeave={startSlider}
               >
-                {techTalks.map((talk) => (
+                {techTalks.map((talk, index) => (
                   <div
                     key={talk.id}
-                    className="flex-shrink-0 w-[85%] max-w-sm mx-auto md:w-[calc(50%-8px)] md:min-w-[calc(50%-8px)] md:max-w-[calc(50%-8px)] md:mx-0 snap-start"
+                    className="flex-shrink-0 w-[85%] max-w-sm mx-auto md:w-[calc(50%-8px)] md:min-w-[calc(50%-8px)] md:max-w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] lg:min-w-[calc(33.333%-11px)] lg:max-w-[calc(33.333%-11px)] md:mx-0 snap-start"
                   >
                     <img
                       src={talk.image}
