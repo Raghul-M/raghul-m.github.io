@@ -22,11 +22,24 @@ const ExperienceSection = () => {
   };
   const experiences = [
     {
-      id: 1,
-      title: 'Associate Software Engineer  ',
+      id: 0,
+      title: 'Software Engineer',
       company: 'RedHat',
       location: 'Remote',
-      period: 'Feb2024 - Present',
+      period: 'Apr 2026 - Present',
+      description: 'Model Serving Runtimes in OpenShift AI',
+      achievements: [
+        "Contributing to the development and optimization of model serving runtimes in OpenShift AI, driving scalable and reliable ML inference at enterprise scale.",
+        "Building and maintaining CI/CD pipelines and automation frameworks to streamline model deployment and release workflows.",
+        "Collaborating with cross-functional teams to enhance model serving capabilities using KServe, vLLM, and cloud-native technologies.",
+      ],
+    },
+    {
+      id: 1,
+      title: 'Associate Software Engineer',
+      company: 'RedHat',
+      location: 'Remote',
+      period: 'Feb 2024 - Mar 2026',
       description: 'Model Serving Runtimes in Openshift AI ',
       achievements: [
         "Led Model Deployment at Scale: Spearheaded the RHOAI Model Images project and testing efforts for model serving runtimes in OpenShift AI, ensuring production-grade stability and accuracy.",
@@ -116,10 +129,9 @@ const ExperienceSection = () => {
     {
       degree: 'NVIDIA GenAI LLM Associate',
       school: 'NVIDIA',
-      period: '2025',
+      period: '2026',
       location: 'Online Certification',
-      verifyUrl: 'https://www.credly.com/badges/nvidia-genai-llm-associate/public_url',
-      ongoing: true
+      verifyUrl: 'https://www.credly.com/badges/b9172e83-7172-4cac-944f-a7a08d61ae65/public_url'
     },
     {
       degree: 'Terraform Associate',
